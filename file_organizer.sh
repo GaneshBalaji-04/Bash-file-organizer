@@ -1,10 +1,10 @@
 #!/bin/bash
 
 #Creating the directories, no errors if the directory already exists
-mkdir -p documents
-mkdir -p images
-mkdir -p videos
-mkdir -p others
+mkdir -p my_documents
+mkdir -p my_images
+mkdir -p my_videos
+mkdir -p Others
 
 
 
@@ -13,22 +13,23 @@ for files in *; do #This loop traverses with all the files in the current direct
 		#Skipping the subdirectories
 		continue
 	elif [[ "$files" == "file_organizer.sh" ]]; then
+		#Skipping the current file
 		continue
 	fi
 
 	filetype=$( file --mime-type -b "$files" ) #Fetching the extension of a file through the attribute --mime-type
 	case "$filetype" in        #Using switch case to segregate the files
 	image/*)
-		mv "$files" images
+		mv "$files" my_images
 		;;
 	video/*)
-		mv "$files" videos
+		mv "$files" my_videos
 		;;
 	application/pdf | text/*)
-		mv "$files" documents
+		mv "$files" my_documents
 		;;
 	*)
-		mv "$files" others
+		mv "$files" Others
 		;;
 	esac
 done
